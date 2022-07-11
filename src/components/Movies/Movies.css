@@ -1,0 +1,37 @@
+.movies{
+    margin-top: 50px;
+}
+.movies__list{
+    display: grid;
+    grid-template-columns: repeat(auto-fit,minmax(250px,1fr));
+    grid-gap: 40px;
+    width: 100%;
+}
+.movies__item{
+    height: 400px;
+    width: 250px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border: 4px solid orange;
+    padding:  5px;
+    border-radius: 4px;
+    box-shadow: 0 0 5px rgba(0,0,0,0.5);
+    transition: all .5s;
+    cursor: pointer;
+}
+.movies__item:hover{
+    transform: rotate(-5deg) scale(0.95);
+}
+.movies__img{
+    width: 100%;
+    height: 400px;
+    object-fit: contain;
+}
+.movies__name{
+    text-align: center;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    padding: 5px 0;
+    overflow: hidden;
+}
