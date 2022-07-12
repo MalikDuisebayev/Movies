@@ -16,10 +16,11 @@ class Modal {
   }
   async render(id) {
     const data = (await getMovies.get()).find((el) => el.kinopoiskId == id);
-    // const data = response.find((el) => el.kinopoiskId == id);
 
     const { nameRu, nameEn, countries, genres, posterUrl, premiereRu } = data;
+
     const date = new Date(premiereRu).toLocaleDateString("ru-RU");
+
     let genre = this.getListsMoviesInCategory(genres, "genre");
     let country = this.getListsMoviesInCategory(countries, "country");
 
