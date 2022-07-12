@@ -3,22 +3,37 @@ import { ROOT_MODAL } from "../../root/root";
 import "./Modal.css";
 
 class Modal {
+  getListsMoviesInCategory(el, category) {
+    let lists = "";
+    if (el.length > 1) {
+      el.forEach((element) => {
+        lists += `${element[category]} `;
+      });
+    } else {
+      lists = el[0][category];
+    }
+    return lists;
+  }
   async render(id) {
-    const response = await getMovies.get();
-    const data = response.find((el) => el.kinopoiskId == id);
-    console.log(data);
-    const date = new Date(data.premiereRu).toLocaleDateString("ru-RU");
+    const data = (await getMovies.get()).find((el) => el.kinopoiskId == id);
+    // const data = response.find((el) => el.kinopoiskId == id);
+
+    const { nameRu, nameEn, countries, genres, posterUrl, premiereRu } = data;
+    const date = new Date(premiereRu).toLocaleDateString("ru-RU");
+    let genre = this.getListsMoviesInCategory(genres, "genre");
+    let country = this.getListsMoviesInCategory(countries, "country");
+
     const htmlCatalog = `
     <div class="modal__item"> 
-    <img class="modal__img" src="${data.posterUrl}" alt="${data.nameRu}">
+    <img class="modal__img" src="${posterUrl}" alt="${nameRu}">
     <div class="modal__content">
     <h2 class="modal__name" >
-    ${data.nameRu}
-    <span class="modal__name-span">${data.nameEn}</span>
+    ${nameRu}
+    <span class="modal__name-span">${nameEn}</span>
     </h2>
     <ul class="modal__list">
-        <li class="modal__list-item"><strong>Жанр:</strong> ${data.genres[0].genre}</li>
-        <li class="modal__list-item"><strong>Страна:</strong> ${data.countries[0].country}</li>
+        <li class="modal__list-item"><strong>Жанр:</strong> ${genre}</li>
+        <li class="modal__list-item"><strong>Страна:</strong> ${country}</li>
         <li class="modal__list-item"><strong>Премьера:</strong> ${date}</li>
         
     </ul>
