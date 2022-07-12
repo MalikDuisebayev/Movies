@@ -5,6 +5,7 @@ class App {
   async render() {
     Header.render();
     await Movies.render();
+    Movies.eventListener();
   }
 }
 export default new App();
